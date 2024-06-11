@@ -71,3 +71,5 @@ class Parser:
         # NOTE: We will allow extra newlines too, of course
         while self.checkToken(TokenType.NEWLINE):
             self.nextToken
+    
+    
