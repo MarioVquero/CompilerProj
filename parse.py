@@ -3,8 +3,9 @@ from lex import *
 
 # Parser object keeps track of current token and checks if the code matches the grammar
 class Parser:
-    def __init__ (self, lexer):
+    def __init__ (self, lexer, emitter):
         self.lexer = lexer
+        self.emitter = emitter
 
         self.symbols = set()
         self.labelsDeclared = set() # variables declared so far
@@ -43,7 +44,8 @@ class Parser:
 
     # program ::= {statement}
     def program(self):
-        print("PROGRAM")
+        self.emitter.headerLine("#include <stdio.h>")
+        self.emitter.headerLine("int main(void){")
 
         # Since some newlines are required in our grammar, need to skip the excess
         while self.checkToken(TokenType.NEWLINE):
@@ -52,6 +54,10 @@ class Parser:
         # Parse all the statements in the program.
         while not self.checkToken(TokenType.EOF):
             self.statement()
+
+        # wrap everything up
+        self.emitter.emitLine("return 0;")
+        self.emitter.emitLine("}")
 
         # check that each label referenced in GOTO is delcared
         for label in self.labeslGotoed:

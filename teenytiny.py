@@ -1,11 +1,12 @@
 from lex import *
+from emit import *
 from parse import *
 import sys
 
 def main():
     print("Teeny Tiny Compiler")
     
-    if len(sys.argv) !=2:
+    if len(sys.argv) != 2:
         sys.exit("Error: Compiler needs source file as argument.")
     with open(sys.argv[1], 'r') as inputFile:
         source = inputFile.read()
@@ -15,6 +16,7 @@ def main():
     parser = Parser(lexer)
 
     parser.program() #start the parser.
-    print("parsing complete")
+    emitter.writefile() #write the output to file
+    print("compiling complete")
 
 main()
