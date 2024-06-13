@@ -5,10 +5,10 @@ class Emitter:
         self.header = ""
         self.code = ""
 
-    def emit(self,code):
+    def emit(self, code):
         self.code += code
 
-    def emitline(self, code):
+    def emitLine(self, code):
         self.code += code + '\n'
 
     def headerLine(self, code):
@@ -17,3 +17,5 @@ class Emitter:
     def writeFile(self):
         with open(self.fullpath, 'w') as outputFile:
             outputFile.write(self.header + self.code)
+
+# this is the entirety of the emitters coded. it is simply a helper class for appending strings together
