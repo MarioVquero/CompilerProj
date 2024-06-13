@@ -13,10 +13,11 @@ def main():
     
     # Initialize the lexer and parser.
     lexer = Lexer(source)
-    parser = Parser(lexer)
+    emitter = Emitter("out.c")
+    parser = Parser(lexer, emitter)
 
     parser.program() #start the parser.
-    Emitter.writefile() #write the output to file
+    emitter.writeFile() #write the output to file
     print("compiling complete")
 
 main()
